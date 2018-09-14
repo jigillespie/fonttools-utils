@@ -1,17 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from __future__ import absolute_import, print_function, unicode_literals
-from builtins import range
-from builtins import object
-
-VERSION = "1.23"
+VERSION = "1.24"
 """pyftfeatfreeze.py
 Version %(version)s
 Copyright (c) 2015 by Adam Twardoch <adam@twardoch.com>
 Licensed under the Apache 2 license.
 """ % {"version": VERSION}
 
+# 1.24 (2018-09-12 by jigillespie): Corrected conversion from Python 2 to 3
 # 1.23 (2015-09-29 by adam):
 #      minor
 # 1.22 (2015-08-06 by adam):
@@ -108,7 +105,7 @@ def parseOptions():
     return parser.parse_args()
 
 
-class RemapByOTL(object):
+class RemapByOTL:
 
     def __init__(self, options):
         self.success = True
@@ -305,7 +302,7 @@ class RemapByOTL(object):
                     oldname = nr.string.decode("utf_16_be")
                 else:
                     oldname = nr.string
-                newname = u"%s%s" % (oldname, suffix)
+                newname = "%s%s" % (oldname, suffix)
                 if replacenames: 
                     for repl in replacetable: 
                         newname = newname.replace(repl[0],repl[1])
@@ -322,7 +319,7 @@ class RemapByOTL(object):
                         oldname = nr.string.decode("utf_16_be")
                     else:
                         oldname = nr.string
-                    newname = u"%s; featfreeze: %s" % (oldname, self.options.features)
+                    newname = "%s; featfreeze: %s" % (oldname, self.options.features)
                     if nr.platformID in [0, 3]:
                         nr.string = newname.encode("utf_16_be")
                     else:
@@ -338,8 +335,8 @@ class RemapByOTL(object):
                 psfamily = parts[0]
                 psstyle = "".join(parts[1:])
                 if len(psstyle):
-                    psstyle = u"-%s" % (psstyle)
-                newpsname = u"%s%s%s" % (psfamily, pssuffix, psstyle)
+                    psstyle = "-%s" % (psstyle)
+                newpsname = "%s%s%s" % (psfamily, pssuffix, psstyle)
                 if replacenames: 
                     for repl in replacetable: 
                         newpsname = newpsname.replace(repl[0],repl[1])
@@ -360,7 +357,7 @@ class RemapByOTL(object):
                 else:
                     nfam = nrfam.string
                     nsty = nrsty.string
-                newname = u"%s %s" % (nfam, nsty)
+                newname = "%s %s" % (nfam, nsty)
                 if nr.platformID in [0, 3]:
                     nr.string = newname.encode("utf_16_be")
                     utf8fullname = newname.encode("utf_8")
